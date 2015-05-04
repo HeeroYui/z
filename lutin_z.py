@@ -3,7 +3,7 @@ import lutinModule as module
 import lutinTools as tools
 
 def get_desc():
-	return "z-lib library (for windows)"
+	return "z-lib library"
 
 
 def create(target):
@@ -28,7 +28,6 @@ def create(target):
 		
 		myModule.add_export_path(tools.get_current_path(__file__))
 		myModule.add_export_path(tools.get_current_path(__file__) + "/zlib")
-		
 		
 		myModule.compile_flags_CC([
 			"-D_LARGEFILE64_SOURCE=1",
