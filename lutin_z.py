@@ -1,6 +1,6 @@
 #!/usr/bin/python
-import lutinModule as module
-import lutinTools as tools
+import lutin.module as module
+import lutin.tools as tools
 
 def get_desc():
 	return "z-lib library"
@@ -29,7 +29,7 @@ def create(target):
 		myModule.add_export_path(tools.get_current_path(__file__))
 		myModule.add_export_path(tools.get_current_path(__file__) + "/zlib")
 		
-		myModule.compile_flags_CC([
+		myModule.compile_flags('c', [
 			"-D_LARGEFILE64_SOURCE=1",
 			"-DHAVE_HIDDEN"])
 		
@@ -38,7 +38,7 @@ def create(target):
 	else:
 		myModule = module.Module(__file__, 'z', 'PREBUILD')
 		
-		myModule.add_export_flag_LD('-lz')
+		myModule.add_export_flag('link', '-lz')
 		# add the currrent module at the 
 		return myModule
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python
-import lutinModule as module
-import lutinTools as tools
+import lutin.module as module
+import lutin.tools as tools
 
 def get_desc():
 	return "MINIZIP : Small zip interface"
@@ -20,12 +20,12 @@ def create(target):
 	
 	myModule.compile_version_CC(1999)
 	
-	myModule.compile_flags_CC([
+	myModule.compile_flags('c', [
 		"-DNOCRYPT",
 		"-DIOAPI_NO_64"])
 	
 	if target.name=="IOs" or target.name=="MacOs":
-		myModule.compile_flags_CC("-Wno-implicit-function-declaration")
+		myModule.compile_flags('c', "-Wno-implicit-function-declaration")
 	
 	# add the currrent module at the 
 	return myModule
