@@ -8,8 +8,8 @@ def get_desc():
 
 def create(target):
 	if target.name=="Windows":
-		myModule = module.Module(__file__, 'z', 'LIBRARY')
-		myModule.add_src_file([
+		my_module = module.Module(__file__, 'z', 'LIBRARY')
+		my_module.add_src_file([
 			"zlib/adler32.c",
 			"zlib/crc32.c",
 			"zlib/deflate.c",
@@ -26,20 +26,20 @@ def create(target):
 			"zlib/gzread.c",
 			"zlib/gzwrite.c"])
 		
-		myModule.add_export_path(tools.get_current_path(__file__))
-		myModule.add_export_path(tools.get_current_path(__file__) + "/zlib")
+		my_module.add_export_path(tools.get_current_path(__file__))
+		my_module.add_export_path(tools.get_current_path(__file__) + "/zlib")
 		
-		myModule.compile_flags('c', [
+		my_module.compile_flags('c', [
 			"-D_LARGEFILE64_SOURCE=1",
 			"-DHAVE_HIDDEN"])
 		
 		# add the currrent module at the 
-		return myModule
+		return my_module
 	else:
-		myModule = module.Module(__file__, 'z', 'PREBUILD')
+		my_module = module.Module(__file__, 'z', 'PREBUILD')
 		
-		myModule.add_export_flag('link', '-lz')
+		my_module.add_export_flag('link', '-lz')
 		# add the currrent module at the 
-		return myModule
+		return my_module
 
 
