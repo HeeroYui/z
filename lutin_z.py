@@ -2,13 +2,31 @@
 import lutin.module as module
 import lutin.tools as tools
 
+
+def get_type():
+	return "LIBRARY"
+
 def get_desc():
-	return "z-lib library"
+	return "zip conpression and decompression library"
 
+def get_licence():
+	return "zlib"
 
-def create(target):
+def get_compagny_type():
+	return "edu"
+
+def get_compagny_name():
+	return "Caltech Alumni Association"
+
+def get_maintainer():
+	return ["Mark Adler <madler@alumni.caltech.edu>", ]
+
+def get_version():
+	return [1,2,8]
+
+def create(target, module_name):
 	if target.name=="Windows":
-		my_module = module.Module(__file__, 'z', 'LIBRARY')
+		my_module = module.Module(__file__, module_name, get_type())
 		my_module.add_src_file([
 			"zlib/adler32.c",
 			"zlib/crc32.c",
@@ -25,21 +43,28 @@ def create(target):
 			"zlib/gzlib.c",
 			"zlib/gzread.c",
 			"zlib/gzwrite.c"])
-		
-		my_module.add_export_path(tools.get_current_path(__file__))
-		my_module.add_export_path(tools.get_current_path(__file__) + "/zlib")
-		
+		my_module.add_path(tools.get_current_path(__file__))
+		my_module.add_path(tools.get_current_path(__file__) + "/zlib")
 		my_module.compile_flags('c', [
 			"-D_LARGEFILE64_SOURCE=1",
 			"-DHAVE_HIDDEN"])
-		
-		# add the currrent module at the 
+		my_module.add_header_file([
+			'zlib/zlib.h',
+			'zlib/inflate.h',
+			'zlib/deflate.h',
+			'zlib/inffast.h',
+			'zlib/zutil.h',
+			'zlib/inftrees.h',
+			'zlib/trees.h',
+			'zlib/crc32.h',
+			'zlib/gzguts.h',
+			'zlib/inffixed.h',
+			'zlib/zconf.h'
+			])
 		return my_module
 	else:
 		my_module = module.Module(__file__, 'z', 'PREBUILD')
-		
 		my_module.add_export_flag('link', '-lz')
-		# add the currrent module at the 
 		return my_module
 
 

@@ -1,33 +1,54 @@
 #!/usr/bin/python
 import lutin.module as module
 import lutin.tools as tools
+import os
+
+def get_type():
+	return "LIBRARY"
 
 def get_desc():
-	return "MINIZIP : Small zip interface"
+	return "MINIZIP zip file interface"
 
+def get_licence():
+	return "zlib"
 
-def create(target):
-	my_module = module.Module(__file__, 'minizip', 'LIBRARY')
+def get_compagny_type():
+	return "edu"
+
+def get_compagny_name():
+	return "Caltech Alumni Association"
+
+def get_maintainer():
+	return ["Mark Adler <madler@alumni.caltech.edu>", ]
+
+def get_version():
+	return [1,2,8]
+
+def create(target, module_name):
+	my_module = module.Module(__file__, module_name, get_type())
 	my_module.add_src_file([
 		"zlib/contrib/minizip/unzip.c",
 		"zlib/contrib/minizip/zip.c",
 		"zlib/contrib/minizip/miniunz.c",
 		"zlib/contrib/minizip/ioapi.c"])
-	
-	my_module.add_export_path(tools.get_current_path(__file__) + "/zlib/contrib/")
-	
+	my_module.add_path(os.path.join(tools.get_current_path(__file__), "zlib/contrib/"))
 	my_module.add_module_depend('z')
-	
-	my_module.compile_version_CC(1999)
-	
+	my_module.compile_version("c", 1999)
 	my_module.compile_flags('c', [
 		"-DNOCRYPT",
 		"-DIOAPI_NO_64"])
-	
 	if target.name=="IOs" or target.name=="MacOs":
 		my_module.compile_flags('c', "-Wno-implicit-function-declaration")
-	
-	# add the currrent module at the 
+	my_module.add_header_file([
+		'zlib/contrib/minizip/crypt.h',
+		'zlib/contrib/minizip/unzip.h',
+		'zlib/contrib/minizip/ioapi.h',
+		'zlib/contrib/minizip/mztools.h',
+		'zlib/contrib/minizip/iowin32.h',
+		'zlib/contrib/minizip/zip.h'
+		],
+		destination_path="minizip")
+
 	return my_module
 
 
