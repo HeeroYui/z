@@ -60,7 +60,7 @@ def create(target, module_name):
 			'zlib/gzguts.h',
 			'zlib/inffixed.h',
 			'zlib/zconf.h'
-			])
+			], destination_path="")
 		return my_module
 	else:
 		my_module = module.Module(__file__, 'z', 'PREBUILD')
