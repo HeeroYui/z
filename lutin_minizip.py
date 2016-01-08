@@ -48,7 +48,6 @@ def create(target, module_name):
 		'zlib/contrib/minizip/zip.h'
 		],
 		destination_path="minizip")
-
 	return my_module
 
 
