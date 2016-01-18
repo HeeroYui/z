@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import lutin.module as module
 import lutin.tools as tools
-
+import os
 
 def get_type():
 	return "LIBRARY"
@@ -42,8 +42,10 @@ def create(target, module_name):
 		"zlib/gzlib.c",
 		"zlib/gzread.c",
 		"zlib/gzwrite.c"])
+	# build in C mode
+	my_module.compile_version("c", 1999)
 	my_module.add_path(tools.get_current_path(__file__))
-	my_module.add_path(tools.get_current_path(__file__) + "/zlib")
+	my_module.add_path(os.path.join(tools.get_current_path(__file__), "zlib"))
 	my_module.compile_flags('c', [
 		"-D_LARGEFILE64_SOURCE=1",
 		"-DHAVE_HIDDEN"])
