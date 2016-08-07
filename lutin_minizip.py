@@ -47,7 +47,7 @@ def create(target, module_name):
 		'zlib/contrib/minizip/iowin32.h',
 		'zlib/contrib/minizip/zip.h'
 		],
-		destination_path="minizip")
+		clip_path='zlib/contrib')
 	return my_module
 
 
