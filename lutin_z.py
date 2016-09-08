@@ -47,7 +47,7 @@ def create(target, module_name):
 	my_module.compile_version("c", 1999)
 	my_module.add_path(tools.get_current_path(__file__))
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "zlib"))
-	my_module.compile_flags('c', [
+	my_module.add_flag('c', [
 	    "-D_LARGEFILE64_SOURCE=1",
 	    "-DHAVE_HIDDEN"
 	    ])
@@ -64,7 +64,7 @@ def create(target, module_name):
 	    'zlib/inffixed.h',
 	    'zlib/zconf.h'
 	    ], destination_path="")
-	my_module.add_module_depend(['c'])
+	my_module.add_depend(['c'])
 	return my_module
 
 
