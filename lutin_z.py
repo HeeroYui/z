@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 import os
 
@@ -24,8 +24,7 @@ def get_maintainer():
 def get_version():
 	return [1,2,8]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    "zlib/adler32.c",
 	    "zlib/crc32.c",
@@ -45,8 +44,8 @@ def create(target, module_name):
 	    ])
 	# build in C mode
 	my_module.compile_version("c", 1999)
-	my_module.add_path(tools.get_current_path(__file__))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "zlib"))
+	my_module.add_path(".")
+	my_module.add_path("zlib")
 	my_module.add_flag('c', [
 	    "-D_LARGEFILE64_SOURCE=1",
 	    "-DHAVE_HIDDEN"
@@ -65,6 +64,6 @@ def create(target, module_name):
 	    'zlib/zconf.h'
 	    ], destination_path="")
 	my_module.add_depend(['c'])
-	return my_module
+	return True
 
 
